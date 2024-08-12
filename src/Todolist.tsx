@@ -5,11 +5,12 @@ import Button from "./Button";
 type PropsType = {
     title: string
     tasks: TaskType[]
-    removeTask: (taskId: number) => void
+    removeTask: (taskId: string) => void
     changeFilter: (filter:FilterValuesType) => void
+    addTask: (title:string) => void
 }
 
-const Todolist = ({title, tasks, removeTask, changeFilter}: PropsType) => {
+const Todolist = ({title, tasks, removeTask, changeFilter,addTask}: PropsType) => {
 
     return (
 
@@ -17,7 +18,7 @@ const Todolist = ({title, tasks, removeTask, changeFilter}: PropsType) => {
             <h3>{title}</h3>
             <div>
                 <input/>
-                <button>+</button>
+                <Button onClick={() =>addTask('sdasd')} title={'+'}></Button>
             </div>
             {tasks.length === 0 ? (
                 <p>no tasks</p>
