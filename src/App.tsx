@@ -30,37 +30,29 @@ function App() {
             title,
             isDone: true
         }
-        const newTasks = [newTask, ...tasks]
-        setTasks(newTasks)
-        console.log('add task')
+        setTasks([newTask, ...tasks])
     }
 
-    const [filter, setFilter] = useState<FilterValuesType>('all')
 
     const removeTask = (taskId: string) => {
         setTasks(tasks.filter(t => t.id !== taskId))
-        console.log(tasks)
     }
 
-    const changeFilter = (filter: FilterValuesType) => {
-        setFilter(filter)
+    const changeTaskStatus = (taskID: string, isDone: boolean) => {
+        const nextState: Array<TaskType> = tasks.map(task => task.id === taskID ? {...task, isDone} : task)
+        setTasks(nextState)
     }
 
-    let taskForTodoList = tasks
-    if (filter === 'active') {
-        taskForTodoList = tasks.filter(tasks => !tasks.isDone)
-    }
-    if (filter === 'completed') {
-        taskForTodoList = tasks.filter(tasks => tasks.isDone)
-    }
+
+
 
     return (
         <div className="App">
             <Todolist title={'What to learn'}
-                      tasks={taskForTodoList}
+                      tasks={tasks}
                       removeTask={removeTask}
-                      changeFilter={changeFilter}
                       addTask={addTask}
+                      changeTaskStatus={changeTaskStatus}
             />
         </div>
     );
