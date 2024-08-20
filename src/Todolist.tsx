@@ -22,8 +22,10 @@ const Todolist = ({title, tasks, removeTask, addTask, changeTaskStatus}: PropsTy
         setTaskTitle(event.currentTarget.value)
     }
     const addTaskHandler = () => {
-        addTask(taskTitle)
-        setTaskTitle('')
+        if (taskTitle.trim() !== '') {
+            addTask(taskTitle)
+            setTaskTitle('')
+        }
     }
     const addTaskOnKeyUpHandler = (event: KeyboardEvent<HTMLInputElement>) => {
         if (event.key === 'Enter') {
@@ -33,7 +35,6 @@ const Todolist = ({title, tasks, removeTask, addTask, changeTaskStatus}: PropsTy
     const changeFilterTasksHandler = (filter: FilterValuesType) => {
         changeFilter(filter)
     }
-
 
 
     // const taskForTodoList: Array<TaskType> = filter === 'active'
@@ -79,15 +80,18 @@ const Todolist = ({title, tasks, removeTask, addTask, changeTaskStatus}: PropsTy
                                 removeTask(task.id)
                             }
 
-                             const changeTaskStatusHandler = (e: ChangeEvent<HTMLInputElement>) => changeTaskStatus(task.id, e.currentTarget.checked)
+                            const changeTaskStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
+                                changeTaskStatus(task.id, e.currentTarget.checked)
 
+                            }
+                            const taskClass = task.isDone ? 'task-done' : 'task'
                             return (
                                 <li key={task.id}>
                                     <input type="checkbox"
                                            checked={task.isDone}
                                            onChange={changeTaskStatusHandler}
                                     />
-                                    <span>{task.title}</span>
+                                    <span className={taskClass}>{task.title}</span>
                                     <Button title={'x'} onClick={removeTaskHandler}></Button>
                                 </li>
                             )
