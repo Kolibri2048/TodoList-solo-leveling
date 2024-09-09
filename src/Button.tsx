@@ -1,13 +1,20 @@
 import React from 'react';
+import {isDisabled} from "@testing-library/user-event/utils/misc/isDisabled";
 
 type ButtonProps = {
     title: string
     onClick?: () => void
+    isDisable?: boolean
+    classes?: string
 }
 
-const Button = ({title,onClick} : ButtonProps) => {
+const Button = ({title, onClick, isDisable, classes}: ButtonProps) => {
     return (
-        <button onClick={onClick}>{title}</button>
+        <button className={classes}
+                disabled={isDisable}
+                onClick={onClick}
+        >{title}
+        </button>
     );
 };
 
