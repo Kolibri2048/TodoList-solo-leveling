@@ -7,33 +7,18 @@
   margin-right: 50px;
 }
 
-.task {
-  font-weight: bold;
-
+.error {
+  border: red 1px solid;
 }
 
-.task-done {
-  text-decoration: line-through;
+.error-message {
+  color: red;
+}
+
+.active-filter {
+  background-color: lightgreen;
+}
+
+.is-done {
   opacity: 0.5;
-}
-
-.btn-filter-active {
-  background-color: gold;
-  border: 2px solid gold;
-  border-radius: 3px;
-  font-weight: bold;
-}
-
-.btn-filter {
-  font-weight: bold;
-}
-
-.btns-filter-block{
-  display: flex;
-  gap: 6px;
-}
-
-.task-input-error {
-  border: 2px solid red;
-  outline: none;
 }
