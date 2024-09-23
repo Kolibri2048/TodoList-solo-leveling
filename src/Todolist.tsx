@@ -4,16 +4,18 @@ import {Button} from "./Button";
 
 type PropsType = {
 	title: string
+	todoListID: string
 	tasks: TaskType[]
+
 	removeTask: (taskId: string) => void
-	changeFilter: (filter: FilterValuesType) => void
+	changeFilter: (todoListId: string, filter: FilterValuesType) => void
 	addTask: (title: string) => void
 	changeTaskStatus: (taskId: string, taskStatus: boolean) => void
 	filter: FilterValuesType
 }
 
 export const Todolist = (props: PropsType) => {
-	const {title, tasks, filter, removeTask, changeFilter, addTask, changeTaskStatus} = props
+	const {title, tasks, filter, removeTask, changeFilter, addTask, changeTaskStatus, todoListID} = props
 
 	const [taskTitle, setTaskTitle] = useState('')
 	const [error, setError] = useState<string | null>(null)
@@ -39,8 +41,23 @@ export const Todolist = (props: PropsType) => {
 	}
 
 	const changeFilterTasksHandler = (filter: FilterValuesType) => {
-		changeFilter(filter)
+		changeFilter( props.todoListID, filter)
 	}
+
+	// const filteredTask = () => {
+	// 	switch (filter) {
+	// 		case "active":
+	// 			tasks.filter(task => !task.isDone)
+	// 			break
+	// 		case 'completed':
+	// 				tasks.filter(task => task.isDone)
+	// 			break
+	// 		}
+	// 	}
+	// 	if(props.filter === 'active') {
+	// 		tasks.filter(task => !task.isDone)
+	// 	}
+
 
 	return (
 		<div>
