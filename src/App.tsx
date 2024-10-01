@@ -32,6 +32,7 @@ function App() {
         {id: todolistID2, title: 'What to buy', filter: 'all'},
     ])
 
+
     let [tasks, setTasks] = useState<TasksStateType>({
         [todolistID1]: [
             {id: v1(), title: 'HTML&CSS', isDone: true},
@@ -85,9 +86,20 @@ function App() {
     }
 
 
+
+    const updateTaskTitle = (todolistID: string, taskId: string, newTitle: string) => {
+        setTasks({...tasks, [todolistID]: tasks[todolistID].map(el => el.id === taskId ? {...el, title:newTitle} : el)})
+        // map - update, filter - delete
+    }
+
+    const updateTodoListTitle = (todoListsID:string, newTitle: string) => {
+        setTodoLists(todoLists.map(el => el.id === todoListsID ? {...el, title : newTitle}: el))
+    }
+
+
     return (
         <div className="App">
-            <AddItemForm addTask={addTodoList} todolistID={'ssdsd'}/>
+            <AddItemForm addTask={addTodoList} />
             {todoLists.map(el => {
                 let tasksForTodolist = tasks[el.id]
                 if (el.filter === 'active') {
@@ -109,6 +121,8 @@ function App() {
                         changeTaskStatus={changeTaskStatus}
                         removeTodolist={removeTodolist}
                         filter={el.filter}
+                        updateTaskTitle={updateTaskTitle}
+                        updateTodoListTitle={updateTodoListTitle}
                     />
                 )
             })}
