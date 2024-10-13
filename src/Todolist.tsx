@@ -6,7 +6,7 @@ import EditableSpan from "./EditableSpan";
 import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
-import Checkbox from '@mui/material/Checkbox';
+import SuperCheckedBox from "./SuperCheckbox";
 
 type PropsType = {
     title: string
@@ -46,16 +46,18 @@ export const Todolist = (props: PropsType) => {
         props.updateTaskTitle(props.todoListID, tID, newTitle)
     }
 
+    const changeTaskStatusHandler = (taskID:string,isDone:boolean) => {
+        props.changeTaskStatus(props.todoListID, taskID,isDone)
+    }
+
 
     return (
         <div>
             <h3>
                 <EditableSpan oldTitle={props.title} callBack={changeTodoListTitleHandler}/>
-                {/*{props.title}*/}
                 <IconButton aria-label="delete" onClick={removeTodoListHandler}>
                     <DeleteIcon/>
                 </IconButton>
-                {/*<button >X</button>*/}
 
             </h3>
             <div>
@@ -72,14 +74,17 @@ export const Todolist = (props: PropsType) => {
                                 removeTask(props.todoListID, task.id)
                             }
 
-                            const changeTaskStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
-                                const newStatusValue = e.currentTarget.checked
-                                changeTaskStatus(props.todoListID, task.id, newStatusValue)
-                            }
+                            // const changeTaskStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
+                            //     const newStatusValue = e.currentTarget.checked
+                            //     changeTaskStatus(props.todoListID, task.id, newStatusValue)
+                            // }
+
+
 
 
                             return <li key={task.id} className={task.isDone ? 'is-done' : ''}>
-                                <Checkbox checked={task.isDone} onChange={changeTaskStatusHandler}/>
+                                <SuperCheckedBox checked={task.isDone} onChange={(isDone) =>changeTaskStatusHandler(task.id, isDone)}/>
+                                {/*<Checkbox checked={task.isDone} onChange={(e) =>changeTaskStatusHandler(e,task.id)}/>*/}
                                 <EditableSpan oldTitle={task.title}
                                               callBack={(newTitle) => updateTaskTitleHandler(task.id, newTitle)}/>
                                 <IconButton aria-label="delete" onClick={removeTaskHandler}>
